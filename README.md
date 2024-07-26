@@ -1,4 +1,4 @@
-![Alt text](assets/sheeja.png?raw=true "logo")
+![Alt text](assets/logo.png?raw=true "logo")
 # Sensitive Heuristic Electrical Expenditure and Joule Analyser
 An Ultra-sensitive AI based Power meter for Electrical Activity Analysis
 
