@@ -1,4 +1,5 @@
-# sheeja
+![Alt text](assets/sheeja.png?raw=true "logo")
+# Sensitive Heuristic Electrical Expenditure and Joule Analyser
 An Ultra-sensitive AI based Power meter for Electrical Activity Analysis
 
 The project aims to build a spyware device that is able to detect small variations in current through through a load through which it can analyse what the device is doing.Essentially a spyware hacking device which works on the analogue domain rather than the software level. The device will be connected as a spy device in the mains line where it will spy on all the attached electrical devices.
