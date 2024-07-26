@@ -6,6 +6,7 @@ The project aims to build a spyware device that is able to detect small variatio
 
 The device makes use of Kirchoffs third current law and exploits it. The exploitability of attached devices depends on bad practices in the electrical design of the hackable devices.
 
+
 ## Specs to be built:
 
 1. Simulation and Development of PCB board
@@ -21,5 +22,9 @@ Since its unsafe to play with AC mains without a proper PCB Board , Will make a 
 2. Identify which all instruments connected to the AC Grid
 3. Keylogging device connected.
 4. Extract Audio played in the device remotely.
+
+## Build
+
+MCU Space: STM32F103RBT6 -> Bluepill
 
 THIS IS A SPYWARE DEVICE BUILT FOR EDUCATIONAL PURPOSES. I DO NOT TAKE ANY RESPONSIBILITY FOR ITS MISUSE, WARNING! : THE DEVICE INTERACTS WITH NON ISOLATED HIGH VOLTAGE AC AND CAN CAUSE FATAL INJURY SO USE/BUILD AT YOUR OWN RISK.
