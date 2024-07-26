@@ -14,7 +14,7 @@ The device makes use of Kirchoffs third current law and exploits it. The exploit
 
 Since its unsafe to play with AC mains without a proper PCB Board , Will make a DC Version of the device with same specs which works by tapping the low voltage dc cable going to the device rather than the tap at 240V
 
-Applications of this device are as follows:
+## Applications of this device are as follows:
 
 1. Detect faults in any device by training for faulty and non faulty conditions.
 2. Identify which all instruments connected to the AC Grid
