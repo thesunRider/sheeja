@@ -72,9 +72,8 @@ void loop() {
   byte readingH = SPI.transfer(0);
   byte readingL = SPI.transfer(0);
   digitalWrite(_csPin, HIGH);  //  de-assert CS
- // uint16_t reading = ((readingH & 0b00011111) << 7) +  //  data in LSB 5 bits
- //                    ((readingL & 0b11111110) >> 1); 
-  uint8_t msg_send[] = {(readingH & 0b00011111) << 7,(readingL & 0b11111110) >> 1};
+  uint16_t reading = ((readingH & 0b00011111) << 7) +  ((readingL & 0b11111110) >> 1); 
+  uint8_t msg_send[] = { (uint8_t) (((uint16_t)reading >> 0) & 0xFF), (uint8_t) (((uint16_t)reading >> 8) & 0xFF)};
 
   //  combine 2 bytes ADC value into uint16_t
   udp.broadcast(msg_send,2);
