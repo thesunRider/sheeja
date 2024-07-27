@@ -1,14 +1,22 @@
 import time
 import socket
 import binascii
+
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 client_socket.settimeout(5)
 client_socket.bind(('',1234))
 
+delta_avg = 0
+count = 0
 try:
     while(1):
-        data, server = client_socket.recvfrom(1024)
-        #print(binascii.hexlify(bytearray(data)))
+        start_time = time.time()
+        data, server = client_socket.recvfrom(1472)
+        end_time = time.time()
+        delta_time = end_time - start_time
+        delta_avg = (delta_avg*count + delta_time)/(count+1)
+        count += 1
+        print(binascii.hexlify(bytearray(data))," avg=",delta_avg)
 
 except socket.timeout:
     print('REQUEST TIMED OUT')

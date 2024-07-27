@@ -1,9 +1,13 @@
 #include <SPI.h>
 #include "WiFi.h"
+
+#define CONFIG_ARDUINO_UDP_RUNNING_CORE 0
+#define LENGTH_MSG 2*1400
 #include "AsyncUDP.h"
 
 const char *ssid = "iobeam";
 const char *password = "12345678";
+uint8_t msg_send[LENGTH_MSG];
 
 /*
 ------Connections----------
@@ -21,7 +25,7 @@ void setup() {
   Serial.println("Starting");
   pinMode(_csPin, OUTPUT);
 
-  SPISettings spiSettings(10000000,  //  1 MHz (1us) clock
+  SPISettings spiSettings(1800000,  //  1 MHz (1us) clock
                           MSBFIRST,         //  MSB shifted first
                           SPI_MODE0);       //  SPI Mode 0,0
 
@@ -39,43 +43,24 @@ void setup() {
     }
   }
   Serial.println(WiFi.localIP());
-  if (udp.listen(1234)) {
-    Serial.print("UDP Listening on IP: ");
-    Serial.println(WiFi.localIP());
-    udp.onPacket([](AsyncUDPPacket packet) {
-      Serial.print("UDP Packet Type: ");
-      Serial.print(packet.isBroadcast() ? "Broadcast" : packet.isMulticast() ? "Multicast" : "Unicast");
-      Serial.print(", From: ");
-      Serial.print(packet.remoteIP());
-      Serial.print(":");
-      Serial.print(packet.remotePort());
-      Serial.print(", To: ");
-      Serial.print(packet.localIP());
-      Serial.print(":");
-      Serial.print(packet.localPort());
-      Serial.print(", Length: ");
-      Serial.print(packet.length());
-      Serial.print(", Data: ");
-      Serial.write(packet.data(), packet.length());
-      Serial.println();
-      //reply to the client
-      packet.printf("Got %u bytes of data", packet.length());
-    });
-  }
+  udp.listen(1234);
+  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
-  digitalWrite(_csPin, LOW);  //  pull CS low
-  //  read 2 bytes ADC value
-  byte readingH = SPI.transfer(0);
-  byte readingL = SPI.transfer(0);
-  digitalWrite(_csPin, HIGH);  //  de-assert CS
-  uint16_t reading = ((readingH & 0b00011111) << 7) +  ((readingL & 0b11111110) >> 1); 
-  uint8_t msg_send[] = { (uint8_t) (((uint16_t)reading >> 0) & 0xFF), (uint8_t) (((uint16_t)reading >> 8) & 0xFF)};
-
+  for (int i=0;i<LENGTH_MSG-1;i+=2){
+    digitalWrite(_csPin, LOW);  //  pull CS low
+    //  read 2 bytes ADC value
+    byte readingH = SPI.transfer(0);
+    byte readingL = SPI.transfer(0);
+    digitalWrite(_csPin, HIGH);  //  de-assert CS
+    uint16_t reading = ((readingH & 0b00011111) << 7) +  ((readingL & 0b11111110) >> 1); 
+    msg_send[i] =  (uint8_t) (((uint16_t)reading) & 0xFF);
+    msg_send[i+1] = (uint8_t) (((uint16_t)reading >> 8) & 0xFF);
+  }
+  
   //  combine 2 bytes ADC value into uint16_t
-  udp.broadcast(msg_send,2);
+  udp.broadcast(msg_send,LENGTH_MSG);
 
 }
