@@ -26,7 +26,7 @@ Since its unsafe to play with AC mains without a proper PCB Board , Will make a 
 ## Build
 
 MCU Space: ESP32WROOM -> WIFI UDP \
-Example for UDP testing using Netcat:\
+Example for UDP testing using Netcat: \
 
 ``
 ncat -ul 1234
