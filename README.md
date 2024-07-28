@@ -35,12 +35,12 @@ Steps required for Running:
 
 ## Completion
 
--[x] AC PCB design
--[x] Setup DC equivalent circuit and tested hardware 
--[x] Completed Audio Extraction algorithm
--[ ] Implement SVM Machines to recognise patterns in current flow
--[ ] Make AC Physical hardware -> Needs funding
- 
+- [x] AC PCB design
+- [x] Setup DC equivalent circuit and tested hardware 
+- [x] Completed Audio Extraction algorithm
+- [ ] Implement SVM Machines to recognise patterns in current flow
+- [ ] Make AC Physical hardware -> Needs funding
+
 
 ## Disclaimer
 
