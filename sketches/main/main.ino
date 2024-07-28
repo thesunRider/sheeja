@@ -1,8 +1,7 @@
 #include <SPI.h>
 #include "WiFi.h"
 
-#define CONFIG_ARDUINO_UDP_RUNNING_CORE 0
-#define LENGTH_MSG 2*1400
+#define LENGTH_MSG 2*3000
 #include "AsyncUDP.h"
 
 const char *ssid = "iobeam";

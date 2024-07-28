@@ -33,16 +33,45 @@ options:
     state: enabled
 
 blocks:
+- name: decm
+  id: variable
+  parameters:
+    comment: ''
+    value: '5'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [456, 40.0]
+    rotation: 0
+    state: enabled
 - name: samp_rate
   id: variable
   parameters:
     comment: ''
-    value: '60000'
+    value: '500000'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
     coordinate: [256, 48.0]
+    rotation: 0
+    state: enabled
+- name: audio_sink_0
+  id: audio_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    device_name: ''
+    num_inputs: '1'
+    ok_to_block: 'True'
+    samp_rate: '16000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1256, 464.0]
     rotation: 0
     state: enabled
 - name: blocks_short_to_float_0
@@ -59,29 +88,57 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [728, 232.0]
+    coordinate: [456, 184.0]
     rotation: 0
     state: enabled
-- name: network_udp_sink_0
-  id: network_udp_sink
+- name: low_pass_filter_0
+  id: low_pass_filter
   parameters:
-    addr: 127.0.0.1
     affinity: ''
     alias: ''
+    beta: '6.76'
     comment: ''
-    header: '0'
-    payloadsize: '1472'
-    port: '1224'
-    send_eof: 'False'
-    type: short
-    vlen: '1'
+    cutoff_freq: '100000'
+    decim: decm
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    type: fir_filter_fff
+    width: '10000'
+    win: window.WIN_HAMMING
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1104, 412.0]
+    coordinate: [696, 136.0]
     rotation: 0
-    state: disabled
+    state: enabled
+- name: low_pass_filter_0_0
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '8000'
+    decim: decm
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate/(6*decm)
+    type: fir_filter_fff
+    width: '1000'
+    win: window.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [984, 368.0]
+    rotation: 0
+    state: enabled
 - name: network_udp_source_0
   id: network_udp_source
   parameters:
@@ -93,16 +150,16 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     notify_missed: 'False'
-    payloadsize: '2800'
-    port: '1234'
-    src_zeros: 'False'
+    payloadsize: '1472'
+    port: '1245'
+    src_zeros: 'True'
     type: short
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 268.0]
+    coordinate: [112, 212.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -161,7 +218,7 @@ blocks:
     name: '""'
     nconnections: '1'
     size: '1024'
-    srate: samp_rate
+    srate: samp_rate/decm
     stemplot: 'False'
     style1: '1'
     style10: '1'
@@ -180,7 +237,7 @@ blocks:
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
     type: float
-    update_time: '0.020'
+    update_time: '0.001'
     width1: '1'
     width10: '1'
     width2: '1'
@@ -201,7 +258,7 @@ blocks:
     bus_structure: null
     coordinate: [1096, 228.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: qtgui_waterfall_sink_x_0
   id: qtgui_waterfall_sink_x
   parameters:
@@ -218,7 +275,7 @@ blocks:
     alpha8: '1.0'
     alpha9: '1.0'
     axislabels: 'True'
-    bw: samp_rate
+    bw: samp_rate/decm
     color1: '0'
     color10: '0'
     color2: '0'
@@ -265,8 +322,11 @@ blocks:
     state: enabled
 
 connections:
-- [blocks_short_to_float_0, '0', qtgui_time_sink_x_0, '0']
-- [blocks_short_to_float_0, '0', qtgui_waterfall_sink_x_0, '0']
+- [blocks_short_to_float_0, '0', low_pass_filter_0, '0']
+- [low_pass_filter_0, '0', low_pass_filter_0_0, '0']
+- [low_pass_filter_0, '0', qtgui_time_sink_x_0, '0']
+- [low_pass_filter_0, '0', qtgui_waterfall_sink_x_0, '0']
+- [low_pass_filter_0_0, '0', audio_sink_0, '0']
 - [network_udp_source_0, '0', blocks_short_to_float_0, '0']
 
 metadata:
