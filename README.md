@@ -25,11 +25,23 @@ Since its unsafe to play with AC mains without a proper PCB Board , Will make a 
 
 ## Build
 
-MCU Space: ESP32WROOM -> WIFI UDP \
-Example for UDP testing using Netcat: \
+MCU Space: RP2040  \
+Steps required for Running:
+1. Upload rp2daq from https://github.com/FilipDominec/rp2daq/
+2. Build a Current to Voltage converter
+3. Sample using rp2daq
+4. run 'test_stager.py'
+5. run Gnuradio and analyse the waveform captured
 
-``
-ncat -ul 1234
-``
+## Completion
+
+-[x] AC PCB design
+-[x] Setup DC equivalent circuit and tested hardware 
+-[x] Completed Audio Extraction algorithm
+-[ ] Implement SVM Machines to recognise patterns in current flow
+-[ ] Make AC Physical hardware -> Needs funding
+ 
+
+## Disclaimer
 
 THIS IS A SPYWARE DEVICE BUILT FOR EDUCATIONAL PURPOSES. I DO NOT TAKE ANY RESPONSIBILITY FOR ITS MISUSE, WARNING! : THE DEVICE INTERACTS WITH NON ISOLATED HIGH VOLTAGE AC AND CAN CAUSE FATAL INJURY SO USE/BUILD AT YOUR OWN RISK.
