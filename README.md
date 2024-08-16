@@ -42,6 +42,12 @@ Steps required for Running:
 - [ ] Make AC Physical hardware -> Needs funding
 
 
+### Demo
+Explanation : https://youtu.be/FdhoOF5BaTU?si=ynuruRXwzofKNHDV
+
+Showcase at: assets/Sheejatest.mp4
+The showcase demonstartes how audio can be extracted from the powerline of a bluetooth speaker 
+
 ## Disclaimer
 
 THIS IS A SPYWARE DEVICE BUILT FOR EDUCATIONAL PURPOSES. I DO NOT TAKE ANY RESPONSIBILITY FOR ITS MISUSE, WARNING! : THE DEVICE INTERACTS WITH NON ISOLATED HIGH VOLTAGE AC AND CAN CAUSE FATAL INJURY SO USE/BUILD AT YOUR OWN RISK.
