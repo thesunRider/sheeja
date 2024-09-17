@@ -45,7 +45,7 @@ Steps required for Running:
 ### Demo
 Explanation : https://youtu.be/FdhoOF5BaTU?si=ynuruRXwzofKNHDV
 
-Showcase at: assets/Sheejatest.mp4 \
+Showcase at: [Showcase video](https://www.youtube.com/shorts/BuZGbcjsLXw) \
 The showcase demonstartes how audio can be extracted from the powerline of a bluetooth speaker 
 
 ## Disclaimer
